@@ -1,0 +1,473 @@
+File: src/main.jsx - Entry point for the React application
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import './index.css'
+import App from './App.jsx'
+
+createRoot(document.getElementById('root')).render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+)
+
+File: src/App.jsx - Main application component with routing and layout
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import Home from './Home';
+import About from './About';
+import Services from './Services';
+import './index.css';
+
+function App() {
+  useEffect(() => {
+    // Add Google Fonts: Source Sans Pro
+    const link = document.createElement('link');
+    link.href = 'https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap';
+    link.rel = 'stylesheet';
+    document.head.appendChild(link);
+  }, []);
+
+  return (
+    <Router>
+      <div className="app-container">
+        {/* Navigation */}
+        <nav className="navbar">
+          <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '110px' }}>
+            <div className="logo">
+              <Link to="/">
+                <img src="/logo.png" alt="Innovex Group" style={{ height: '90px' }} />
+              </Link>
+            </div>
+            <div className="nav-links" style={{ display: 'flex', gap: '2rem' }}>
+              <Link to="/" className="nav-link">Home</Link>
+              <Link to="/about" className="nav-link">About Us</Link>
+              <Link to="/services" className="nav-link">Services</Link>
+              <Link to="/contact" className="nav-link">Contact</Link>
+            </div>
+          </div>
+        </nav>
+
+        {/* Routes */}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/contact" element={<div className="section-padding text-center"><h2>Contact Page Coming Soon</h2></div>} />
+        </Routes>
+
+        {/* Footer */}
+        <footer style={{ background: '#0a0a0a', color: 'white', padding: '60px 0 20px' }}>
+          <div className="container">
+            <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '2rem', marginBottom: '3rem' }}>
+              <div>
+                <img src="/logo.png" alt="Innovex" style={{ height: '50px', filter: 'brightness(0) invert(1)', marginBottom: '1.5rem' }} />
+                <p style={{ color: '#999', maxWidth: '300px' }}>
+                  Turbah Hub, Office No.4, Buwsher<br />
+                  Muscat, Sultanate of Oman
+                </p>
+              </div>
+              <div>
+                <h4 style={{ color: 'white', marginBottom: '1.5rem' }}>Services</h4>
+                <ul style={{ listStyle: 'none', color: '#999', lineHeight: '2' }}>
+                  <li><Link to="/services">Industrial Engineering</Link></li>
+                  <li><Link to="/services">IT Services</Link></li>
+                  <li><Link to="/services">AI & Machine Learning</Link></li>
+                  <li><Link to="/services">Business Development</Link></li>
+                </ul>
+              </div>
+              <div>
+                <h4 style={{ color: 'white', marginBottom: '1.5rem' }}>Connect</h4>
+                <ul style={{ listStyle: 'none', color: '#999', lineHeight: '2' }}>
+                  <li>LinkedIn</li>
+                  <li>Twitter</li>
+                  <li>Contact Us</li>
+                </ul>
+              </div>
+            </div>
+            <div style={{ borderTop: '1px solid #333', paddingTop: '20px', textAlign: 'center', color: '#666', fontSize: '0.9rem' }}>
+              &copy; 2025 Innovex Group LLC. All rights reserved.
+            </div>
+          </div>
+        </footer>
+      </div>
+    </Router>
+  );
+}
+
+export default App;
+
+File: src/App.css - Styles specific to the App component
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+File: src/index.css - Global styles and design system variables
+:root {
+  /* Core Colors */
+  --primary-green: #009e49;
+  --primary-blue: #0056b3;
+  --primary-purple: #6f42c1;
+  --primary-orange: #fd7e14;
+  --primary-cyan: #0dcaf0;
+
+  --text-dark: #212529;
+  --text-light: #6c757d;
+  --bg-white: #ffffff;
+  --bg-light: #f8f9fa;
+
+  --font-main: 'Source Sans Pro', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--bg-white);
+  color: var(--text-dark);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.3s;
+}
+
+/* Navigation */
+.navbar {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  height: 110px;
+  display: flex;
+  align-items: center;
+}
+
+.nav-link {
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--text-dark);
+  position: relative;
+}
+
+.nav-link:hover {
+  color: var(--primary-blue);
+}
+
+.logo img {
+  height: 90px !important;
+  transition: transform 0.3s;
+}
+
+.logo img:hover {
+  transform: scale(1.05);
+}
+
+/* Gradients & Effects */
+.text-gradient {
+  background: linear-gradient(135deg, #0056b3, #6f42c1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-green {
+  background: linear-gradient(135deg, #009e49, #8cc63f);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Multi-colored Gradient for Headings */
+.text-gradient-multicolor {
+  background: linear-gradient(90deg, #0056b3, #6f42c1, #fd7e14, #009e49);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientAnimation 5s ease infinite;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Dark Shaded Vibrant Gradient for Hero - Animated */
+.text-gradient-hero {
+  background: linear-gradient(135deg, #002a80, #5a189a, #e01e37, #002a80);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  animation: gradientAnimation 6s ease infinite;
+}
+
+/* Hero Text Container - Hazy Background (Reduced Opacity) */
+.hero-text-container {
+  background: rgba(255, 255, 255, 0.2);
+  /* Reduced opacity to 0.2 */
+  backdrop-filter: blur(10px);
+  /* Slightly reduced blur for visibility */
+  padding: 3rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  max-width: 900px;
+}
+
+/* Buttons */
+.btn-primary {
+  background: linear-gradient(135deg, #0056b3, #004494);
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 30px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: inline-block;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 86, 179, 0.3);
+}
+
+.btn-gradient {
+  background: linear-gradient(90deg, #0056b3, #6f42c1, #fd7e14);
+  background-size: 200% auto;
+  color: white;
+  border: none;
+  padding: 14px 35px;
+  border-radius: 30px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 4px 15px rgba(111, 66, 193, 0.3);
+}
+
+.btn-gradient:hover {
+  background-position: right center;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(111, 66, 193, 0.4);
+}
+
+.btn-outline {
+  background: rgba(255, 255, 255, 0.4);
+  /* Increased opacity for visibility */
+  border: 2px solid #0056b3;
+  color: #0056b3;
+  padding: 12px 30px;
+  border-radius: 30px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-outline:hover {
+  background: #0056b3;
+  color: white;
+}
+
+/* Cards */
+.card {
+  background: var(--bg-white);
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s, box-shadow 0.3s;
+  overflow: hidden;
+  border-top: 4px solid transparent;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* Card Accents */
+.card-blue {
+  border-top-color: var(--primary-blue);
+}
+
+.card-green {
+  border-top-color: var(--primary-green);
+}
+
+.card-purple {
+  border-top-color: var(--primary-purple);
+}
+
+.card-orange {
+  border-top-color: var(--primary-orange);
+}
+
+.card-cyan {
+  border-top-color: var(--primary-cyan);
+}
+
+
+/* Utilities */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.section-padding {
+  padding: 60px 0;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.bg-light {
+  background-color: var(--bg-light);
+}
+
+/* Alternating Features */
+.feature-row {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  margin-bottom: 1.5rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.feature-row:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.feature-row:nth-child(even) {
+  flex-direction: row-reverse;
+}
+
+.feature-img {
+  flex: 1;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+  max-height: 300px;
+}
+
+.feature-img:hover {
+  transform: scale(1.02);
+}
+
+.feature-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.feature-content {
+  flex: 1;
+}
+
+/* Services Page Styles */
+.service-category {
+  margin-bottom: 4rem;
+}
+
+.service-category h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #eee;
+  color: var(--text-dark);
+}
+
+@media (max-width: 768px) {
+
+  .feature-row,
+  .feature-row:nth-child(even) {
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .hero-title {
+    font-size: 2.5rem !important;
+  }
+
+  .hero-text-container {
+    padding: 1.5rem;
+  }
+
+  .navbar {
+    height: auto;
+    padding: 1rem 0;
+  }
+}
